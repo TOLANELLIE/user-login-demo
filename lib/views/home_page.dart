@@ -1,7 +1,9 @@
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:user_login_design/views/login_page.dart';
+import 'package:user_login_design/views/pagination.dart';
 import 'package:user_login_design/widgets/text_field_user_submit.dart';
 
 class UserEmailPassword {
@@ -14,7 +16,7 @@ class UserEmailPassword {
   });
 }
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({
     super.key,
     required this.argument,
@@ -22,9 +24,25 @@ class HomePage extends StatelessWidget {
 
   final UserEmailPassword argument;
   static const routename = 'home_page';
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.indigo,
+        onPressed: () {
+          GoRouter.of(context).pushNamed(Pagination.routename);
+        },
+        child: Icon(
+          PhosphorIcons.bold.caretRight,
+          size: 24,
+        ),
+      ),
       appBar: AppBar(
         elevation: 0,
         leading: IconButton(
@@ -41,21 +59,25 @@ class HomePage extends StatelessWidget {
         title: const Text('Home Page'),
         centerTitle: true,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            UserTextFieldSubmit(
-              label: 'Email:',
-              text: argument.email,
-            ),
-            const SizedBox(height: 10),
-            UserTextFieldSubmit(
-              label: 'Password:',
-              text: argument.password,
-            ),
-          ],
+      body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              UserTextFieldSubmit(
+                label: 'Email:',
+                text: widget.argument.email,
+              ),
+              const SizedBox(height: 10),
+              UserTextFieldSubmit(
+                label: 'Password:',
+                text: widget.argument.password,
+              ),
+              const SizedBox(height: 20),
+            ],
+          ),
         ),
       ),
     );
