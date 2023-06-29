@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
@@ -30,9 +29,20 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  //
+  final formKey = GlobalKey<FormState>();
+  String name = "";
+
+  //
   @override
   Widget build(BuildContext context) {
+    //
+    final double height = MediaQuery.of(context).size.height;
+    final GlobalKey<ScaffoldState> scffoldkey = GlobalKey<ScaffoldState>();
+
+    //
     return Scaffold(
+      key: scffoldkey,
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.indigo,
         onPressed: () {
@@ -70,12 +80,12 @@ class _HomePageState extends State<HomePage> {
                 label: 'Email:',
                 text: widget.argument.email,
               ),
-              const SizedBox(height: 10),
+              SizedBox(height: height * 0.05),
               UserTextFieldSubmit(
                 label: 'Password:',
                 text: widget.argument.password,
               ),
-              const SizedBox(height: 20),
+              SizedBox(height: height * 0.05),
             ],
           ),
         ),

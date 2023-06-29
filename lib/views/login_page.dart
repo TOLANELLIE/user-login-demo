@@ -22,9 +22,18 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _inputPassword = TextEditingController();
 
   //
+  final formKey = GlobalKey<FormState>();
+  String name = "";
+
+  //
   @override
   Widget build(BuildContext context) {
+    //
+    final GlobalKey<ScaffoldState> scaffoldkey = GlobalKey<ScaffoldState>();
+    final double height = MediaQuery.of(context).size.height;
+
     return Scaffold(
+      key: scaffoldkey,
       backgroundColor: Colors.grey.shade100,
       body: SafeArea(
         child: Column(
@@ -39,20 +48,24 @@ class _LoginPageState extends State<LoginPage> {
                 color: Colors.indigo.withOpacity(0.6),
               ),
             ),
-            const SizedBox(height: 50),
+            SizedBox(height: height * 0.1),
             InputTextField(
               controller: _inputEmail,
               label: 'Email',
               hinttext: 'example@gmail.com',
             ),
-            const SizedBox(height: 16),
+
+            //
+            SizedBox(height: height * 0.02),
             InputTextField(
               controller: _inputPassword,
               label: 'Password',
               hinttext: 'at least 8 character',
               obscuretext: true,
             ),
-            const SizedBox(height: 20),
+
+            //
+            SizedBox(height: height * 0.05),
             SubmitButton(
               titile: 'Register / Login',
               ontap: () {
